@@ -1,0 +1,19 @@
+[DataContract]
+public class GetAvailableCarsResponse
+{
+    [DataMember]
+    public List<Car> Cars { get; set; }
+}
+
+[DataContract]
+public class Car
+{
+    [DataMember]
+    public string Make { get; set; }
+    [DataMember]
+    public string Model { get; set; }
+    [DataMember]
+    public int Year { get; set; }
+    [DataMember]
+    public decimal Price { get; set; }
+}

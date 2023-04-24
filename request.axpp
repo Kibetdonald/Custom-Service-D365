@@ -1,0 +1,14 @@
+[DataContract]
+public class GetAvailableCarsRequest
+{
+    [DataMember]
+    public string Make { get; set; }
+    [DataMember]
+    public string Model { get; set; }
+    [DataMember]
+    public int Year { get; set; }
+    [DataMember]
+    public decimal MinPrice { get; set; }
+    [DataMember]
+    public decimal MaxPrice { get; set; }
+}

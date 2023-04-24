@@ -1,0 +1,36 @@
+public class CarYardService : ICarYardService
+{
+    public GetAvailableCarsResponse GetAvailableCars(GetAvailableCarsRequest request)
+    {
+        string make = request.Make;
+        string model = request.Model;
+        int year = request.Year;
+        decimal minPrice = request.MinPrice;
+        decimal maxPrice = request.MaxPrice;
+
+        List<Car> cars = new List<Car>();
+
+        // Retrieve the available cars from the database
+        using (var context = new CarYardEntities())
+        {
+            var query = context.Cars.Where(c => c.Make == make || string.IsNullOrEmpty(make))
+                                    .Where(c => c.Model == model || string.IsNullOrEmpty(model))
+                                    .Where(c => c.Year == year || year == 0)
+                                    .Where(c => c.Price >= minPrice)
+                                    .Where(c => c.Price <= maxPrice);
+
+            foreach (var car in query)
+            {
+                cars.Add(new Car
+                {
+                    Make = car.Make,
+                    Model = car.Model,
+                    Year = car.Year,
+                    Price = car.Price
+                });
+            }
+        }
+
+        return new GetAvailableCarsResponse { Cars = cars };
+    }
+}
